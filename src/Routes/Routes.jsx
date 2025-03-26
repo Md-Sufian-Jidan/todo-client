@@ -9,11 +9,13 @@ import MyBucketList from "../Pages/MyBucketlist/MyBucketlist";
 import Login from "../Components/Authentication/Login/Login";
 import Register from "../Components/Authentication/Register/Register";
 import ProtectedRoute from "./ProtectedRoute";
+import Error from "../Components/Shared/Error/Error";
 
 export const router = createBrowserRouter([
     {
         path: "/",
         element: <Main />,
+        errorElement: <Error />,
         children: [
             {
                 path: '/',
