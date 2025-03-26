@@ -6,7 +6,7 @@ import { Menu, X, CheckSquare, ListTodo, PlusCircle, Heart, Target, LogOut } fro
 
 const NavBar = () => {
     // const { user, logout } = useAuth();
-    const user = true;
+    const user = false;
     const [isOpen, setIsOpen] = useState(false);
     const location = useLocation();
 
@@ -19,7 +19,7 @@ const NavBar = () => {
         { name: 'My Todo', path: '/my-todo', icon: <ListTodo size={18} /> },
         { name: 'My Wishlist', path: '/wishlist', icon: <Heart size={18} /> },
         { name: 'Done Todo', path: '/done', icon: <CheckSquare size={18} /> },
-        { name: 'My Bucketlist', path: '/bucketlist', icon: <Target size={18} /> }
+        { name: 'My BucketList', path: '/bucketList', icon: <Target size={18} /> }
     ];
 
     const isActive = (path) => location.pathname === path;

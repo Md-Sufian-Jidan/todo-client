@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Github, Twitter, Instagram, Mail } from 'lucide-react';
+import { Github, Mail, Linkedin, Facebook } from 'lucide-react';
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
@@ -18,16 +18,16 @@ const Footer = () => {
                             Organize tasks, track your wishlist, and achieve your goals.
                         </p>
                         <div className="flex space-x-4">
-                            <a href="#" className="text-gray-500 hover:text-primary transition-colors">
+                            <a target='_blank' href="https://github.com/Md-Sufian-Jidan" className="text-gray-500 hover:text-primary transition-colors">
                                 <Github size={20} />
                             </a>
-                            <a href="#" className="text-gray-500 hover:text-primary transition-colors">
-                                <Twitter size={20} />
+                            <a target='_blank' href="https://www.linkedin.com/in/md-abu-sufian-jidan/" className="text-gray-500 hover:text-primary transition-colors">
+                                <Linkedin size={20} />
                             </a>
-                            <a href="#" className="text-gray-500 hover:text-primary transition-colors">
-                                <Instagram size={20} />
+                            <a target='_blank' href="https://www.facebook.com/md.abu.sufian.158992" className="text-gray-500 hover:text-primary transition-colors">
+                                <Facebook size={20} />
                             </a>
-                            <a href="#" className="text-gray-500 hover:text-primary transition-colors">
+                            <a target='_blank' mail="jidanjiyaj03@gmail.com" className="text-gray-500 hover:text-primary transition-colors">
                                 <Mail size={20} />
                             </a>
                         </div>
