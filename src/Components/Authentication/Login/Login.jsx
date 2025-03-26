@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { LogIn, EyeOff, Eye, AlertCircle } from 'lucide-react';
+import { LogIn, EyeOff, Eye, AlertCircle, Github, Facebook, Mail } from 'lucide-react';
 import { useAuth } from '../../../Hooks/UseAuth';
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
-  
+  const { login, loginWithSocial } = useAuth();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -40,6 +39,18 @@ const Login = () => {
       setLoading(false);
     }
   };
+
+  const handleSocialLogin = async (provider) => {
+    setError('');
+    try {
+      const success = await loginWithSocial(provider);
+      if (success) {
+        navigate('/');
+      }
+    } catch (err) {
+      setError(err.message || `Login with ${provider} failed. Please try again.`);
+    }
+  };
   
   return (
     <div className="min-h-screen pt-16 pb-12 flex flex-col justify-center bg-gray-50">
@@ -67,6 +78,60 @@ const Login = () => {
               <span>{error}</span>
             </div>
           )}
+
+          {/* Social Login Buttons */}
+          <div className="grid grid-cols-3 gap-3 mb-6">
+            <button
+              type="button"
+              onClick={() => handleSocialLogin('google')}
+              className="flex justify-center items-center py-2.5 px-4 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+            >
+              <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
+                <path
+                  fill="#EA4335"
+                  d="M12 5c1.6168 0 3.1013.55353 4.2863 1.4782l3.2271-3.2271C17.5879 1.845 14.8541.75 12 .75 7.4255.75 3.5635 3.4304 1.5199 7.3717l3.7424 2.9087C6.3447 7.1755 8.94507 5 12 5z"
+                />
+                <path
+                  fill="#4285F4"
+                  d="M23.49 12.275c0-.8513-.0767-1.6797-.2254-2.4788H12v4.5588h6.4574c-.2761 1.4976-1.1138 2.7699-2.3805 3.6284v3.0034h3.8578c2.2622-2.0826 3.5553-5.1442 3.5553-8.7118z"
+                />
+                <path
+                  fill="#FBBC05"
+                  d="M5.2623 14.2805c-.288-.8513-.4414-1.7556-.4414-2.6902 0-.9346.1632-1.839.4414-2.6902L1.52 5.9914C.5517 7.8338 0 9.863 0 12c0 2.137.5517 4.1662 1.5199 6.0086l3.7424-2.9087z"
+                />
+                <path
+                  fill="#34A853"
+                  d="M12 23.25c3.2813 0 6.0324-1.0683 8.0349-2.8942l-3.8578-3.0034c-1.0702.7188-2.4417 1.1476-4.1771 1.1476-3.0549 0-5.6553-2.0604-6.5781-4.8292L1.5199 16.596C3.5538 20.5291 7.4255 23.25 12 23.25z"
+                />
+              </svg>
+              Google
+            </button>
+            <button
+              type="button"
+              onClick={() => handleSocialLogin('facebook')}
+              className="flex justify-center items-center py-2.5 px-4 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+            >
+              <Facebook size={20} className="mr-2 text-blue-600" />
+              Facebook
+            </button>
+            <button
+              type="button"
+              onClick={() => handleSocialLogin('github')}
+              className="flex justify-center items-center py-2.5 px-4 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+            >
+              <Github size={20} className="mr-2" />
+              GitHub
+            </button>
+          </div>
+
+          <div className="relative mb-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300" />
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-white text-gray-500">Or continue with</span>
+            </div>
+          </div>
           
           <form className="mb-4 space-y-6" onSubmit={handleSubmit}>
             <div>
