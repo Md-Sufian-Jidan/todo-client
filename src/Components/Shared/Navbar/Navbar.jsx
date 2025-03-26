@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-// import { useAuth } from '../../context/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, CheckSquare, ListTodo, PlusCircle, Heart, Target, LogOut } from 'lucide-react';
+import { useAuth } from '../../../Hooks/UseAuth';
+import { toast } from 'sonner';
 
 const NavBar = () => {
-    // const { user, logout } = useAuth();
-    const user = false;
+    const { user, logOut } = useAuth();
     const [isOpen, setIsOpen] = useState(false);
     const location = useLocation();
 
@@ -25,8 +25,15 @@ const NavBar = () => {
     const isActive = (path) => location.pathname === path;
 
     const logout = () => {
-        console.log('logout');
-    }
+        logOut()
+            .then(result => {
+                console.log(result);
+                return toast.success('User logout successfully');
+            })
+            .catch(err => {
+                return toast.error(err.message);
+            });
+    };
 
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-slate-200/80 shadow-sm">

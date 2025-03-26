@@ -11,7 +11,7 @@ const AuthProvider = ({ children }) => {
     //set loading 
     const [loading, setLoading] = useState(true);
     // creating user with email and password 
-    const createUser = (email, password) => {
+    const createUser = ({ email, password }) => {
         setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
     };
@@ -28,19 +28,20 @@ const AuthProvider = ({ children }) => {
         return signInWithPopup(auth, githubProvider);
     }
     // sign in user with email and password
-    const signInUser = (email, password) => {
+    const signInUser = ({ email, password }) => {
         setLoading(true);
         return signInWithEmailAndPassword(auth, email, password);
     };
     // log out
     const logOut = () => {
-    setLoading(true);
+        setLoading(true);
         return signOut(auth);
     };
 
     // observe the user
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
+            console.log(currentUser);
             setUser(currentUser);
             setLoading(false);
         });
