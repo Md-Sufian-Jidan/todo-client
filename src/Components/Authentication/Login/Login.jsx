@@ -7,7 +7,7 @@ import { toast } from 'sonner';
 
 const Login = () => {
     const navigate = useNavigate();
-    const { signInUser, googleLogin, githubLogin } = useAuth();
+    const { signInUser, googleLogin, githubLogin, facebookLogin } = useAuth();
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -46,6 +46,20 @@ const Login = () => {
         setError('');
         try {
             const success = await googleLogin();
+            if (success) {
+                navigate('/');
+                return toast.success('User Login Successfully');
+            }
+        } catch (err) {
+            setError(err.message || `Login with ${provider} failed. Please try again.`);
+            return toast.error(err.message);
+        }
+    };
+
+    const handleFacebookLogin = async () => {
+        setError('');
+        try {
+            const success = await facebookLogin();
             if (success) {
                 navigate('/');
                 return toast.success('User Login Successfully');
@@ -126,7 +140,7 @@ const Login = () => {
                         </button>
                         <button
                             type="button"
-                            onClick={() => handleSocialLogin('facebook')}
+                            onClick={handleFacebookLogin}
                             className="flex justify-center items-center py-2.5 px-4 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors"
                         >
                             <Facebook size={20} className="mr-2 text-blue-600" />
