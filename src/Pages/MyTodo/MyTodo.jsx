@@ -3,11 +3,12 @@ import { motion } from 'framer-motion';
 // import { Search, ListTodo, Heart, CheckSquare, Target, X, Pocket, CheckCheck, PaintBucket } from 'lucide-react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { toast } from 'sonner';
+import Swal from 'sweetalert2';
 
 const MyTodo = () => {
     const [todos, setTodos] = useState([]);
-    console.log(todos);
-
+    // const [displayTodos, setDisplayTodos] = useState(todos);
     useEffect(() => {
         axios.get(`${import.meta.env.VITE_LOCALHOST_API}/todos`)
             .then(data => {
@@ -29,6 +30,37 @@ const MyTodo = () => {
         //         console.log(err);
         //     })
         // console.log(id);
+    };
+
+    const handleDelete = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete(`${import.meta.env.VITE_LOCALHOST_API}/todo/${id}`)
+                    .then(data => {
+                        if (data.data.deletedCount > 0) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your Todo has been deleted.",
+                                icon: "success"
+                            });
+                            const remaining = todos.filter(todo => todo?._id !== id);
+                            setTodos(remaining);
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        return toast.error(err.message);
+                    })
+            }
+        });
     };
 
     return (
@@ -83,7 +115,7 @@ const MyTodo = () => {
                                         <td title={todo?.description}>{todo?.description.slice(0, 100)}...</td>
                                         <td><button onClick={handleDone} className='btn btn-success'>Done</button></td>
                                         <td><Link to={`/update/${todo?._id}`} className='btn'>Update</Link></td>
-                                        <td><button className='btn btn-error'>Delete</button></td>
+                                        <td><button onClick={() => handleDelete(todo?._id)} className='btn btn-error'>Delete</button></td>
                                     </tr>)
                                 }
                             </tbody>
