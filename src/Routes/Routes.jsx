@@ -10,6 +10,8 @@ import Login from "../Components/Authentication/Login/Login";
 import Register from "../Components/Authentication/Register/Register";
 import ProtectedRoute from "./ProtectedRoute";
 import Error from "../Components/Shared/Error/Error";
+import UpdateTodo from "../Components/Todo/UpdateTodo";
+import axios from "axios";
 
 export const router = createBrowserRouter([
     {
@@ -40,6 +42,11 @@ export const router = createBrowserRouter([
             {
                 path: '/bucketList',
                 element: <ProtectedRoute><MyBucketList /></ProtectedRoute>
+            },
+            {
+                path: '/update/:id',
+                element: <ProtectedRoute><UpdateTodo /></ProtectedRoute>,
+                loader: ({ params }) => axios(`${import.meta.env.VITE_LOCALHOST_API}/todo/${params?.id}`)
             },
             {
                 path: '/login',

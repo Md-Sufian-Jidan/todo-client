@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Search, ListTodo, Heart, CheckSquare, Target, X, Pocket, CheckCheck, PaintBucket } from 'lucide-react';
+// import { Search, ListTodo, Heart, CheckSquare, Target, X, Pocket, CheckCheck, PaintBucket } from 'lucide-react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const MyTodo = () => {
     const [todos, setTodos] = useState([]);
@@ -10,7 +11,7 @@ const MyTodo = () => {
     useEffect(() => {
         axios.get(`${import.meta.env.VITE_LOCALHOST_API}/todos`)
             .then(data => {
-                console.log(data.data);
+                // console.log(data.data);
                 setTodos(data.data);
             })
             .catch(err => {
@@ -18,8 +19,17 @@ const MyTodo = () => {
             });
     }, []);
 
-    const [searchTerm, setSearchTerm] = useState('');
-
+    const handleDone = () => {
+        console.log(`${import.meta.env.VITE_LOCALHOST_API}/todo`);
+        // axios.delete(`${import.meta.env.VITE_LOCALHOST_API}/todo/${id}`)
+        //     .then(data => {
+        //         console.log(data);
+        //     })
+        //     .catch(err => {
+        //         console.log(err);
+        //     })
+        // console.log(id);
+    };
 
     return (
         <div className="min-h-screen pt-20 pb-12">
@@ -30,7 +40,7 @@ const MyTodo = () => {
                     transition={{ duration: 0.3 }}
                     className="max-w-6xl mx-auto"
                 >
-                    <div className="relative mb-6">
+                    {/* <div className="relative mb-6">
                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <Search size={18} className="text-gray-400" />
                         </div>
@@ -49,7 +59,7 @@ const MyTodo = () => {
                                 <X size={18} className="text-gray-400 hover:text-gray-600" />
                             </button>
                         )}
-                    </div>
+                    </div> */}
 
                     <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
                         <table className="table">
@@ -59,9 +69,9 @@ const MyTodo = () => {
                                     <th></th>
                                     <th>Title</th>
                                     <th>Description</th>
-                                    <th>Add To WishList</th>
-                                    <th>Add To Done Todo</th>
-                                    <th>Add To BucketList</th>
+                                    <th>Done Todo</th>
+                                    <th>Update</th>
+                                    <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -70,10 +80,10 @@ const MyTodo = () => {
                                         {/* row 1 */}
                                         <th>{idx + 1}</th>
                                         <td>{todo?.title}</td>
-                                        <td title={todo?.description}>{todo?.description.slice(0,100)}...</td>
-                                        <td><button><Pocket /></button></td>
-                                        <td><button><CheckCheck /></button></td>
-                                        <td><button><PaintBucket /></button></td>
+                                        <td title={todo?.description}>{todo?.description.slice(0, 100)}...</td>
+                                        <td><button onClick={handleDone} className='btn btn-success'>Done</button></td>
+                                        <td><Link to={`/update/${todo?._id}`} className='btn'>Update</Link></td>
+                                        <td><button className='btn btn-error'>Delete</button></td>
                                     </tr>)
                                 }
                             </tbody>
