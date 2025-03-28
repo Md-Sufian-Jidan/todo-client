@@ -8,11 +8,11 @@ import Swal from 'sweetalert2';
 
 const MyTodo = () => {
     const [todos, setTodos] = useState([]);
-    // const [displayTodos, setDisplayTodos] = useState(todos);
+
     useEffect(() => {
         axios.get(`${import.meta.env.VITE_LOCALHOST_API}/todos`)
             .then(data => {
-                // console.log(data.data);
+                console.log(data.data);
                 setTodos(data.data);
             })
             .catch(err => {
@@ -20,16 +20,34 @@ const MyTodo = () => {
             });
     }, []);
 
-    const handleDone = () => {
-        console.log(`${import.meta.env.VITE_LOCALHOST_API}/todo`);
-        // axios.delete(`${import.meta.env.VITE_LOCALHOST_API}/todo/${id}`)
-        //     .then(data => {
-        //         console.log(data);
-        //     })
-        //     .catch(err => {
-        //         console.log(err);
-        //     })
-        // console.log(id);
+    const handleDone = (id) => {
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You done this TODO!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, i done it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.patch(`${import.meta.env.VITE_LOCALHOST_API}/done-todo/${id}`)
+                    .then(data => {
+                        if (data.data.modifiedCount > 0) {
+                            Swal.fire({
+                                title: "Congratulations!",
+                                text: "You have done this TODO.",
+                                icon: "success"
+                            });
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        return toast.error(err.message);
+                    });
+            };
+        });
     };
 
     const handleDelete = (id) => {
@@ -58,8 +76,8 @@ const MyTodo = () => {
                     .catch(err => {
                         console.log(err);
                         return toast.error(err.message);
-                    })
-            }
+                    });
+            };
         });
     };
 
@@ -72,27 +90,6 @@ const MyTodo = () => {
                     transition={{ duration: 0.3 }}
                     className="max-w-6xl mx-auto"
                 >
-                    {/* <div className="relative mb-6">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <Search size={18} className="text-gray-400" />
-                        </div>
-                        <input
-                            type="text"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
-                            placeholder="Search todos..."
-                        />
-                        {searchTerm && (
-                            <button
-                                onClick={() => setSearchTerm('')}
-                                className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                            >
-                                <X size={18} className="text-gray-400 hover:text-gray-600" />
-                            </button>
-                        )}
-                    </div> */}
-
                     <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
                         <table className="table">
                             {/* head */}
@@ -113,7 +110,7 @@ const MyTodo = () => {
                                         <th>{idx + 1}</th>
                                         <td>{todo?.title}</td>
                                         <td title={todo?.description}>{todo?.description.slice(0, 100)}...</td>
-                                        <td><button onClick={handleDone} className='btn btn-success'>Done</button></td>
+                                        <td><button onClick={() => handleDone(todo?._id)} className='btn btn-success'>Done</button></td>
                                         <td><Link to={`/update/${todo?._id}`} className='btn'>Update</Link></td>
                                         <td><button onClick={() => handleDelete(todo?._id)} className='btn btn-error'>Delete</button></td>
                                     </tr>)

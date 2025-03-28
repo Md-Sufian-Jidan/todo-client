@@ -37,7 +37,8 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/done',
-                element: <ProtectedRoute><DoneTodo /></ProtectedRoute>
+                element: <ProtectedRoute><DoneTodo /></ProtectedRoute>,
+                loader: () => axios.get(`${import.meta.env.VITE_LOCALHOST_API}/done-todo`)
             },
             {
                 path: '/bucketList',
