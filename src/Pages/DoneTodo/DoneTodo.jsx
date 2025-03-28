@@ -37,7 +37,7 @@ const DoneTodo = () => {
                                 <th>{idx + 1}</th>
                                 <td>{todo?.title}</td>
                                 <td title={todo?.description}>{todo?.description.slice(0, 100)}...</td>
-                                <td>{todo?.completedAt ? new Date(todo.completedAt).toLocaleDateString("de-DE", options) : "completed date not recoded"}</td>
+                                <td>{todo?.completedAt ? new Date(todo.completedAt).toLocaleDateString("en-AE", options) : "completed date not recoded"}</td>
                                 <td>{todo ? todo.completed.toString() : "No data"}</td>
                             </tr>)
                         }

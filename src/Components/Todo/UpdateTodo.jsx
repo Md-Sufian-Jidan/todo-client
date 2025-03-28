@@ -31,7 +31,7 @@ const UpdateTodo = () => {
             createdAt: todo?.createdAt,
             updatedAt: new Date().toISOString(),
         };
-        console.log(newTodo);
+        // console.log(newTodo);
 
         // axios post
         axios.patch(`${import.meta.env.VITE_LOCALHOST_API}/todo/${todo?._id}`, newTodo)

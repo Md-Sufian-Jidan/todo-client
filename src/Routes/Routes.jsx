@@ -33,7 +33,8 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/wishlist',
-                element: <ProtectedRoute><MyWishList /></ProtectedRoute>
+                element: <ProtectedRoute><MyWishList /></ProtectedRoute>,
+                loader: () => axios.get(`${import.meta.env.VITE_LOCALHOST_API}/wishlist`)
             },
             {
                 path: '/done',
@@ -42,7 +43,8 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/bucketList',
-                element: <ProtectedRoute><MyBucketList /></ProtectedRoute>
+                element: <ProtectedRoute><MyBucketList /></ProtectedRoute>,
+                loader: () => axios.get(`${import.meta.env.VITE_LOCALHOST_API}/bucketList`)
             },
             {
                 path: '/update/:id',

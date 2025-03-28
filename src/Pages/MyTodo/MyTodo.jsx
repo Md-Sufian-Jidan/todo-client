@@ -98,6 +98,7 @@ const MyTodo = () => {
                                     <th></th>
                                     <th>Title</th>
                                     <th>Description</th>
+                                    <th>Category</th>
                                     <th>Done Todo</th>
                                     <th>Update</th>
                                     <th>Delete</th>
@@ -110,6 +111,7 @@ const MyTodo = () => {
                                         <th>{idx + 1}</th>
                                         <td>{todo?.title}</td>
                                         <td title={todo?.description}>{todo?.description.slice(0, 100)}...</td>
+                                        <td>{todo?.category}</td>
                                         <td><button onClick={() => handleDone(todo?._id)} className='btn btn-success'>Done</button></td>
                                         <td><Link to={`/update/${todo?._id}`} className='btn'>Update</Link></td>
                                         <td><button onClick={() => handleDelete(todo?._id)} className='btn btn-error'>Delete</button></td>
