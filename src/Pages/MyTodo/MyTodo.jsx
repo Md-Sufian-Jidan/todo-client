@@ -12,7 +12,7 @@ const MyTodo = () => {
     useEffect(() => {
         axios.get(`${import.meta.env.VITE_LOCALHOST_API}/todos`)
             .then(data => {
-                console.log(data.data);
+                // console.log(data.data);
                 setTodos(data.data);
             })
             .catch(err => {

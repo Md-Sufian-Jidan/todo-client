@@ -45,12 +45,12 @@ const MyWishList = () => {
 
 
     return (
-        <div>
+        <>
             <div className='space-y-5 text-center my-5'>
                 <h2 className='text-4xl'>🌟 Turn Dreams into Reality – Your Wishlist Awaits!</h2>
                 <p className='font-medium'>Every great achievement starts with a wish! This route allows you to save and track the goals and tasks you aspire to complete. Keep your dreams in sight, take action, and watch your wishlist turn into accomplishments. Start today – your future self will thank you! 🚀✨</p>
             </div>
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto my-5">
                 <table className="table">
                     {/* head */}
                     <thead>
@@ -76,7 +76,7 @@ const MyWishList = () => {
                     </tbody>
                 </table>
             </div>
-        </div>
+        </>
     );
 };
 

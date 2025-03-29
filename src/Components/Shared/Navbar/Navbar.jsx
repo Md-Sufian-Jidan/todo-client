@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, CheckSquare, ListTodo, PlusCircle, Heart, Target, LogOut } from 'lucide-react';
+import { Menu, X, CheckSquare, ListTodo, PlusCircle, Heart, Target, LogOut, Sun, Moon } from 'lucide-react';
 import { useAuth } from '../../../Hooks/UseAuth';
 import { toast } from 'sonner';
 
@@ -35,8 +35,20 @@ const NavBar = () => {
             });
     };
 
+
+    const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+    useEffect(() => {
+        document.documentElement.setAttribute("data-theme", theme);
+        localStorage.setItem("theme", theme);
+    }, [theme]);
+
+    const toggleTheme = () => {
+        setTheme(theme === "light" ? "dark" : "light");
+    };
+
     return (
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-slate-200/80 shadow-sm">
+        <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-300 backdrop-blur-lg border-b border-slate-200/80 shadow-sm">
             <div className="container mx-auto px-4 py-3 flex justify-between items-center">
                 <Link
                     to="/"
@@ -63,14 +75,33 @@ const NavBar = () => {
                         </Link>
                     ))}
 
+                    {/* Theme toggle button */}
+                    <button
+                        onClick={toggleTheme}
+                        className="p-2 rounded-md text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                        aria-label={theme === 'dark' ? "Switch to light mode" : "Switch to dark mode"}
+                    >
+                        {theme ? <Sun size={18} /> : <Moon size={18} />}
+                    </button>
+
                     {user ? (
-                        <button
-                            onClick={logout}
-                            className="ml-2 px-4 py-2 flex items-center gap-1.5 text-sm font-medium text-red-600 bg-red-50 rounded-md hover:bg-red-100 transition-colors"
-                        >
-                            <LogOut size={18} />
-                            <span>Logout</span>
-                        </button>
+                        <div className="flex items-center gap-2">
+                            {/* User Profile Icon with Hover Card */}
+                            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                <div className="w-10 rounded-full">
+                                    <img
+                                        alt="User Profile Picture"
+                                        src={user ? user?.photoURL : 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp'} />
+                                </div>
+                            </div>
+                            <button
+                                onClick={logout}
+                                className="ml-2 px-4 py-2 flex items-center gap-1.5 text-sm font-medium text-red-600 bg-red-50 rounded-md hover:bg-red-100 transition-colors"
+                            >
+                                <LogOut size={18} />
+                                <span>Logout</span>
+                            </button>
+                        </div>
                     ) : (
                         <div className="flex space-x-2">
                             <Link
@@ -158,7 +189,7 @@ const NavBar = () => {
                     </motion.div>
                 )}
             </AnimatePresence>
-        </nav>
+        </nav >
     );
 };
 

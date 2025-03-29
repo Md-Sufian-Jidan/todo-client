@@ -57,7 +57,7 @@ const TodoForm = ({ closeForm }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
-            className="bg-white rounded-lg shadow-sm border border-gray-200 p-5"
+            className="bg-white dark:bg-gray-300 rounded-lg shadow-sm border border-gray-200 p-5"
         >
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">

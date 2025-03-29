@@ -23,8 +23,8 @@ const AddTodo = () => {
                     className="max-w-2xl mx-auto"
                 >
                     <div className="mb-6 text-center">
-                        <h1 className="text-3xl font-bold text-gray-900 mb-2">Add New Todo</h1>
-                        <p className="text-gray-600">Create a new task, wishlist item, or bucket list entry</p>
+                        <h1 className="text-3xl font-bold mb-2 ">Add New Todo</h1>
+                        <p className="font-medium">Create a new task, wishlist item, or bucket list entry</p>
                     </div>
 
                     {showSuccess && (
@@ -43,7 +43,7 @@ const AddTodo = () => {
                     <TodoForm onSuccess={handleTodoAdded} />
 
                     <div className="mt-8 pt-8 border-t border-gray-200">
-                        <h2 className="text-xl font-medium text-gray-900 mb-4 flex items-center gap-2">
+                        <h2 className="text-xl font-medium text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                             <ListTodo size={20} />
                             <span>Why create a todo?</span>
                         </h2>

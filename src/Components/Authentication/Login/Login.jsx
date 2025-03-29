@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { LogIn, EyeOff, Eye, AlertCircle, Github, Facebook, Mail } from 'lucide-react';
 import { useAuth } from '../../../Hooks/UseAuth';
@@ -7,6 +7,7 @@ import { toast } from 'sonner';
 
 const Login = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const { signInUser, googleLogin, githubLogin, facebookLogin } = useAuth();
     const [formData, setFormData] = useState({
         email: '',
@@ -33,7 +34,7 @@ const Login = () => {
             const success = await signInUser(formData);
             if (success) {
                 toast.success('User Login Successfully');
-                navigate('/');
+                navigate(location.state ? location.state : '/');
             }
         } catch (err) {
             setError(err.message || 'Login failed. Please try again.');
@@ -47,11 +48,11 @@ const Login = () => {
         try {
             const success = await googleLogin();
             if (success) {
-                navigate('/');
+                navigate(location.state ? location.state : '/');
                 return toast.success('User Login Successfully');
             }
         } catch (err) {
-            setError(err.message || `Login with ${provider} failed. Please try again.`);
+            setError(`Login with goggle failed. Please try again.` || err.message);
             return toast.error(err.message);
         }
     };
@@ -65,7 +66,7 @@ const Login = () => {
                 return toast.success('User Login Successfully');
             }
         } catch (err) {
-            setError(err.message || `Login with ${provider} failed. Please try again.`);
+            setError(err.message || `Login with facebook failed. Please try again.`);
             return toast.error(err.message);
         }
     };
@@ -79,7 +80,7 @@ const Login = () => {
                 return toast.success('User Login Successfully');
             }
         } catch (err) {
-            setError(err.message || `Login with ${provider} failed. Please try again.`);
+            setError(err.message || `Login with github failed. Please try again.`);
             return toast.error(err.message);
         }
     };
@@ -112,6 +113,7 @@ const Login = () => {
                     )}
 
                     {/* Social Login Buttons */}
+                    {/*  */}
                     <div className="grid grid-cols-3 gap-3 mb-6">
                         <button
                             type="button"

@@ -43,34 +43,31 @@ const MyBucketList = () => {
         });
     };
     return (
-        <div>
-            <div className="overflow-x-auto">
-                <table className="table">
-                    {/* head */}
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>Created At</th>
-                            <th>Done</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            todos?.map((todo, idx) => <tr key={todo?._id} className="hover:bg-base-300">
-                                {/* row 1 */}
-                                <th>{idx + 1}</th>
-                                <td>{todo?.title}</td>
-                                <td title={todo?.description}>{todo?.description.slice(0, 100)}...</td>
-                                <td>{todo?.createdAt ? new Date(todo?.createdAt).toLocaleDateString("en-AE", options) : "Created date not recoded"}</td>
-                                <td><button onClick={() => handleDone(todo?._id)} className='btn btn-success'>Done</button></td>
-                            </tr>)
-                        }
-                    </tbody>
-                </table>
-            </div>
-
+        <div className="overflow-x-auto my-5">
+            <table className="table">
+                {/* head */}
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Created At</th>
+                        <th>Done</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        todos?.map((todo, idx) => <tr key={todo?._id} className="hover:bg-base-300">
+                            {/* row 1 */}
+                            <th>{idx + 1}</th>
+                            <td>{todo?.title}</td>
+                            <td title={todo?.description}>{todo?.description.slice(0, 100)}...</td>
+                            <td>{todo?.createdAt ? new Date(todo?.createdAt).toLocaleDateString("en-AE", options) : "Created date not recoded"}</td>
+                            <td><button onClick={() => handleDone(todo?._id)} className='btn btn-success'>Done</button></td>
+                        </tr>)
+                    }
+                </tbody>
+            </table>
         </div>
     );
 };

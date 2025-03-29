@@ -7,10 +7,10 @@ import AuthProvider from './Contexts/AuthProvider.jsx'
 import { Toaster } from 'sonner'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <AuthProvider>
+  <AuthProvider>
+    <StrictMode>
       <RouterProvider router={router} />
       <Toaster position="top-center" />
-    </AuthProvider>
-  </StrictMode>,
+    </StrictMode>
+  </AuthProvider>,
 )
