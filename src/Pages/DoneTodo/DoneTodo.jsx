@@ -9,7 +9,7 @@ const DoneTodo = () => {
     };
     const data = useLoaderData();
     const todos = data.data;
-    console.log(todos);
+    // console.log(todos);
     return (
         <>
             <div className='space-y-5 text-center my-5'>
